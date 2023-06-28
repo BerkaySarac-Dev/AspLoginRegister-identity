@@ -1,23 +1,25 @@
 ﻿using LoginRegisterApp.DTO;
 using LoginRegisterApp.Entities;
+using LoginRegisterApp.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoginRegisterApp.Controllers
 {
-    [Route("[controller]/[action]")]
+    //[Route("[controller]/[action]")]
     [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-
+        private readonly RoleManager<ApplicationRole> _roleManager;
         
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Register()
@@ -43,6 +45,25 @@ namespace LoginRegisterApp.Controllers
             IdentityResult result = await _userManager.CreateAsync(user,registerDTO.Password);
             if (result.Succeeded)
             {
+                //Check the status of radio button
+                if (registerDTO.UserType == Enums.UserTypeOptions.Admin)
+                {
+                    //Create admin role
+                    if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString())is null)
+                    {
+                        ApplicationRole applicationRole = new ApplicationRole()
+                        {
+                            Name = UserTypeOptions.Admin.ToString()
+                        };
+                        await _roleManager.CreateAsync(applicationRole);
+                    }
+
+                    await _userManager.AddToRoleAsync(user,UserTypeOptions.Admin.ToString());
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
+                }
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }
@@ -62,7 +83,7 @@ namespace LoginRegisterApp.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginDTO loginDTO , string? returnUrl)
         {
             if (!ModelState.IsValid) 
             {
@@ -72,6 +93,19 @@ namespace LoginRegisterApp.Controllers
             var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, loginDTO.Password,isPersistent:false,lockoutOnFailure:false);
             if (result.Succeeded)
             {
+                //Check User Role
+                ApplicationUser user = await _userManager.FindByEmailAsync(loginDTO.Email);
+                if (user != null)
+                {
+                    if (await _userManager.IsInRoleAsync(user,UserTypeOptions.Admin.ToString()))
+                    {
+                        return RedirectToAction("Index", "Home",new {area = "Admin"});
+                    }
+                }
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return LocalRedirect(returnUrl);
+                }
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("Login", "Invalid email or password");
@@ -82,6 +116,19 @@ namespace LoginRegisterApp.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        public async Task<IActionResult> IsEmailAlreadyRegistered(string Email)
+        {
+            ApplicationUser user = await _userManager.FindByEmailAsync(Email);
+            if (user == null)
+            {
+                return Json(true);
+            }
+            else
+            {
+                return Json(false);
+            }
         }
     }
 }

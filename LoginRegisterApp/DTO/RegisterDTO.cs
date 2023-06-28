@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LoginRegisterApp.Enums;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace LoginRegisterApp.DTO
@@ -8,6 +9,7 @@ namespace LoginRegisterApp.DTO
         [BindProperty]
         [Required (ErrorMessage = "Email Cannot Be Blank !")]
         [EmailAddress(ErrorMessage = " Email should be in a proper email address format")]
+        [Remote(action:"IsEmailAlreadyRegistered" , controller:"Account" , ErrorMessage = "Email is already registered")]
         public string Email { get; set; }
         [BindProperty]
         [Required(ErrorMessage = "Name Cannot Be Blank !")]
@@ -28,5 +30,7 @@ namespace LoginRegisterApp.DTO
         [Required(ErrorMessage = "Wallet Code  Cannot Be Blank !")]
         [DataType(DataType.Text)]
         public string CryptoWalletCode { get; set; }
+
+        public UserTypeOptions UserType { get; set; } = UserTypeOptions.User;
     }
 }
