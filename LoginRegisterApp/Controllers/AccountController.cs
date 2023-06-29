@@ -21,7 +21,8 @@ namespace LoginRegisterApp.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
-
+        [HttpGet]
+        [Authorize("NotAuthorized")]
         public IActionResult Register()
         {
             return View();
@@ -111,7 +112,7 @@ namespace LoginRegisterApp.Controllers
             ModelState.AddModelError("Login", "Invalid email or password");
             return View(loginDTO);
         }
-
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

@@ -14,13 +14,21 @@ builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = new AuthorizationPolicyBuilder()
     .RequireAuthenticatedUser().Build();
+
+    options.AddPolicy("NotAuthorized",policy =>
+    {
+        policy.RequireAssertion(context =>
+        {
+            return !context.User.Identity.IsAuthenticated;
+        });
+    });
 });
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
 });
 builder.Services.AddControllersWithViews();
-builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options => 
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = true;
