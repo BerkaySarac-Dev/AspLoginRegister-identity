@@ -14,9 +14,7 @@ namespace LoginRegisterApp.DTO
         [BindProperty]
         [Required(ErrorMessage = "Name Cannot Be Blank !")]
         public string PersonName { get; set; }
-        [BindProperty]
-        [Required(ErrorMessage = "Phone Cannot Be Blank !")]
-        public string Phone { get; set; }
+        
         [BindProperty]
         [Required(ErrorMessage = "Password Cannot Be Blank !")]
         [DataType (DataType.Password)]

@@ -50,16 +50,6 @@
             </div>
         </div>
 
-        @*PhoneNumber*@
-        <div class="form-field flex">
-            <div class="w-25">
-                <label asp-for="Phone" class="form-label pt">Phone</label>
-            </div>
-            <div class="flex-1">
-                <input asp-for="Phone" class="form-input" />
-                <span asp-validation-for="Phone" class="text-red"></span>
-            </div>
-        </div>
         @*User Type*@
         <div class="form-field flex">
             <div class="w-25">
@@ -68,8 +58,8 @@
             <div class="flex-1">
                 <input type="radio" asp-for="UserType" value="User" checked />
                 <label asp-for="UserType">User</label>
-                <input type="radio" asp-for="UserType" value="Admin" />
-                <label asp-for="UserType">Admin</label>
+                <input type="radio" asp-for="UserType" value="Vendor" />
+                <label asp-for="UserType">Vendor</label>
             </div>
         </div>
         @*CryptoWalletCode*@
