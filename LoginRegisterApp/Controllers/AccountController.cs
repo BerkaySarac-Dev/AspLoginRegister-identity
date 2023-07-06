@@ -38,7 +38,6 @@ namespace LoginRegisterApp.Controllers
             ApplicationUser user = new ApplicationUser()
             {
                 Email = registerDTO.Email,
-                PhoneNumber = registerDTO.Phone,
                 UserName = registerDTO.Email,
                 PersonName = registerDTO.PersonName,
                 CryptoWalletCode = registerDTO.CryptoWalletCode
@@ -47,23 +46,29 @@ namespace LoginRegisterApp.Controllers
             if (result.Succeeded)
             {
                 //Check the status of radio button
-                if (registerDTO.UserType == Enums.UserTypeOptions.Admin)
+                if (registerDTO.UserType == Enums.UserTypeOptions.Vendor)
                 {
                     //Create admin role
-                    if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString())is null)
+                    if (await _roleManager.FindByNameAsync(UserTypeOptions.Vendor.ToString())is null)
                     {
                         ApplicationRole applicationRole = new ApplicationRole()
                         {
-                            Name = UserTypeOptions.Admin.ToString()
+                            Name = UserTypeOptions.Vendor.ToString()
                         };
                         await _roleManager.CreateAsync(applicationRole);
                     }
 
-                    await _userManager.AddToRoleAsync(user,UserTypeOptions.Admin.ToString());
+                    await _userManager.AddToRoleAsync(user,UserTypeOptions.Vendor.ToString());
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
+                    ApplicationRole applicationRoleUser = new ApplicationRole()
+                        {
+                            Name = UserTypeOptions.User.ToString()
+                        };
+                        await _roleManager.CreateAsync(applicationRoleUser);
+                    await _userManager.AddToRoleAsync(user, UserTypeOptions.User
+                        .ToString());
                 }
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction("Index", "Home");
@@ -98,7 +103,7 @@ namespace LoginRegisterApp.Controllers
                 ApplicationUser user = await _userManager.FindByEmailAsync(loginDTO.Email);
                 if (user != null)
                 {
-                    if (await _userManager.IsInRoleAsync(user,UserTypeOptions.Admin.ToString()))
+                    if (await _userManager.IsInRoleAsync(user,UserTypeOptions.Vendor.ToString()))
                     {
                         return RedirectToAction("Index", "Home",new {area = "Admin"});
                     }

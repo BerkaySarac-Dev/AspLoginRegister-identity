@@ -14,7 +14,7 @@ namespace LoginRegisterApp.Controllers
             _logger = logger;
         }
         [AllowAnonymous]
-        public IActionResult Index()
+        public IActionResult Home()
         {
             return View();
         }
@@ -23,7 +23,16 @@ namespace LoginRegisterApp.Controllers
         {
             return View();
         }
-
+        [AllowAnonymous]
+        public IActionResult Scripts()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public IActionResult Tools()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
