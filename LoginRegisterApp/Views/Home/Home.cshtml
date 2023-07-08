@@ -1,5 +1,7 @@
-﻿@{
+﻿@model IEnumerable<LoginRegisterApp.Models.Showcases>
+@{
     ViewData["Title"] = "Home Page";
+    
 }
 
 <div id="pic-container">
@@ -11,42 +13,30 @@
         <h1 id="announcement-showcase">SHOWCASE</h1>
         <hr>
         <section id="showcase-horizontal">
+            @foreach(var showcase in Model){
             <div id="script-showcase">
-                <a href="" id="script-href">
-                    <img src="~/Images/dummy-ad.svg" alt="ads banner image" id="showcase-img">
+                <a asp-controller="Home" asp-action="ShowcaseRoute" asp-route-showcase="@showcase.ShowcaseUrl" id="script-href">
+                    <img src="@showcase.ShowcasePhotoUrl" alt="ads banner image" id="showcase-img">
                     <div id="inner-container">
-                        <h1 id="showcase-header">Crypto Fox</h1>
-                        <p id="showcase-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-                            expedita
-                            aut, unde, ratione non voluptatem possimus nemo voluptatum consectetur velit omnis amet.</p>
+                        <h1 id="showcase-header">@showcase.ShowcaseHeader</h1>
+                        <p id="showcase-text">@showcase.ShowcaseText</p>
                     </div>
-
                 </a>
-
             </div>
-            <div id="script-showcase">
-                <a href="" id="script-href">
-                    <img src="~/Images/dummy-ad.svg" alt="ads banner image" id="showcase-img">
-                    <div id="inner-container">
-                        <h1 id="showcase-header">Crypto Fox</h1>
-                        <p id="showcase-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-                            expedita
-                            aut, unde, ratione non voluptatem possimus nemo voluptatum consectetur velit omnis amet.</p>
-                    </div>
-
-                </a>
-
-            </div>
-            
+            }
         </section>
         <h1 id="announcement-mini-showcase">MINI SHOWCASE</h1>
         <hr>
         <section id="mini-showcase">
+            @foreach(var showcasemini in @Model){
+                if(showcasemini.IsItMını){
             <div id="showcase-mini">
-                <a href="" id="showcase-href">
-                    <img src="~/Images/mini-showcase-dummy.svg" alt="mini-showcase picture banner" id="mini-showcase-img">
-                    <h2 id="mini-showcase-header">A GİFT FOR YOU</h2>
+                <a asp-controller="Home" asp-action="Showcase" asp-route-showcase="@showcasemini.ShowcaseUrl"  id="showcase-href">
+                    <img src="@showcasemini.ShowcasePhotoUrl" alt="mini-showcase picture banner" id="mini-showcase-img">
+                    <h2 id="mini-showcase-header">@showcasemini.ShowcaseText"</h2>
                 </a>
             </div>
-           
+           }
+           }
+
         </section>

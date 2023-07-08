@@ -1,13 +1,15 @@
+@model IEnumerable<LoginRegisterApp.Models.Scripts>
 <section id="scripts">
+    @foreach(var script in Model){
             <div class="general-container">
                 <div class="script-container">
-                    <a href="" class="card-href">
-                        <img src="~/Images/dummy-ad.svg" alt="" class="card-img">
-                        <h2 class="card-header">CRYPTO FOX</h2>
-                        <p class="card-price">27.99 $</p>
-                        <a href="" class="addto-card">Add To Cart</a>
+                    <a asp-controller="Home" asp-action="Script" asp-route-ScriptName="@script.ScriptUrl" class="card-href">
+                        <img src="@script.ScriptImage" alt="" class="card-img">
+                        <h2 class="card-header">@script.ScriptName</h2>
+                        <p class="card-price">@script.ScriptPrice</p>
+                        <a href="" class="addto-card">BUY</a>
                     </a>
                 </div>
             </div>
-            
+            }
         </section>

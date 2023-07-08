@@ -57,7 +57,6 @@ namespace LoginRegisterApp.Controllers
                         };
                         await _roleManager.CreateAsync(applicationRole);
                     }
-
                     await _userManager.AddToRoleAsync(user,UserTypeOptions.Vendor.ToString());
                 }
                 else
