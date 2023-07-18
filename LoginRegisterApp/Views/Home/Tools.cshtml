@@ -3,7 +3,7 @@
     @foreach(var tool in Model){
             <div class="general-container">
                 <div class="script-container">
-                    <a asp-controller="Home" asp-action="Tool" asp-route-ToolName="@tool.ToolUrl" class="card-href">
+                    <a asp-controller="Tools" asp-action="ToolPage" asp-route-ToolName="@tool.ToolUrl" class="card-href">
                         <img src="@tool.ToolImage" alt="" class="card-img">
                         <h2 class="card-header">@tool.ToolName</h2>
                         <p class="card-price">@tool.ToolPrice</p>
