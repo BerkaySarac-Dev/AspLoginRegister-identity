@@ -123,6 +123,8 @@ namespace LoginRegisterApp.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        public IAc
+
         public async Task<IActionResult> IsEmailAlreadyRegistered(string Email)
         {
             ApplicationUser user = await _userManager.FindByEmailAsync(Email);
@@ -135,5 +137,7 @@ namespace LoginRegisterApp.Controllers
                 return Json(false);
             }
         }
+
+
     }
 }

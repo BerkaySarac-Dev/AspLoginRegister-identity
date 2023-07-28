@@ -7,7 +7,7 @@
                         <img src="@tool.ToolImage" alt="" class="card-img">
                         <h2 class="card-header">@tool.ToolName</h2>
                         <p class="card-price">@tool.ToolPrice</p>
-                        <a href="" class="addto-card">BUY</a>
+                        <a asp-action="purchase" asp-route-id="@tool.Id" asp-controller="Card" class="addto-card">BUY</a>
                     </a>
                 </div>
             </div>

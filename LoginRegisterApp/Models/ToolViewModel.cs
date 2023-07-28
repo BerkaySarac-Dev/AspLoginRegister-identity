@@ -3,6 +3,6 @@
     public class ToolViewModel
     {
         public Tools tools { get; set; }
-        public Comments comments { get; set; }
+        public List<Comments> comments { get; set; }
     }
 }

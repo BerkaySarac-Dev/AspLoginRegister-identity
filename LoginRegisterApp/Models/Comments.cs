@@ -2,7 +2,8 @@
 {
     public class Comments
     {
-        public int CommentId { get; set; }
+
+        public int Id { get; set; }
         public string? Type { get; set; }
         public int TypeId { get; set; }
         public DateTime? CommentDate { get; set; } = DateTime.UtcNow;

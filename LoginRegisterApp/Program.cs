@@ -6,10 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using LoginRegisterApp.Services;
+using Serilog;
+using Serilog.Core;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+var DefaultConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(DefaultConnectionString));
+builder.Services.AddDbContext<ToolsContext>(options => options.UseSqlServer(DefaultConnectionString));
+builder.Services.AddDbContext<ShowcaseContext>(options => options.UseSqlServer(DefaultConnectionString));
+builder.Services.AddDbContext<ScriptsContext>(options => options.UseSqlServer(DefaultConnectionString));
+builder.Services.AddDbContext<CommentContext>(options => options.UseSqlServer(DefaultConnectionString));
 // Add services to the container.
 builder.Services.AddSingleton<IFormService, FormService>();
 builder.Services.AddAuthorization(options =>
@@ -42,6 +49,25 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     .AddDefaultTokenProviders()
     .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
     .AddRoleStore<RoleStore<ApplicationRole,ApplicationDbContext,Guid>>();
+
+Logger log = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log.txt")
+    .WriteTo.MSSqlServer(DefaultConnectionString, "Logs", null, Serilog.Events.LogEventLevel.Information, 50,null,null,true)
+
+    .CreateLogger();
+
+builder.Host.UseSerilog(log);
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("sec-ch-ua");
+    logging.ResponseHeaders.Add("Logging-response");
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +75,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+app.UseSerilogRequestLogging();
+app.UseHttpLogging();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();

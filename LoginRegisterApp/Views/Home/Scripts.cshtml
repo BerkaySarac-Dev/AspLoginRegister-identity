@@ -1,15 +1,25 @@
 @model IEnumerable<LoginRegisterApp.Models.Scripts>
 <section id="scripts">
-    @foreach(var script in Model){
-            <div class="general-container">
-                <div class="script-container">
-                    <a asp-controller="Home" asp-action="Script" asp-route-ScriptName="@script.ScriptUrl" class="card-href">
-                        <img src="@script.ScriptImage" alt="" class="card-img">
-                        <h2 class="card-header">@script.ScriptName</h2>
-                        <p class="card-price">@script.ScriptPrice</p>
-                        <a href="" class="addto-card">BUY</a>
-                    </a>
-                </div>
+    @foreach (var script in Model)
+    {
+       
+            <div class="script-container">
+                <a asp-controller="Home" asp-action="Script" asp-route-ScriptName="@script.ScriptUrl" class="card-href">
+                    <img src="@script.ScriptImage" alt="" class="card-img">
+                    <h2 class="card-header">@script.ScriptName</h2>
+                    <p class="card-price">@script.ScriptPrice</p>
+                    <a asp-action="@script.ScriptUrl" asp-controller="Scripts" class="addto-card">BUY</a>
+                </a>
             </div>
-            }
-        </section>
+        
+    }
+   
+        <div class="script-container">
+            <a asp-controller="Home" asp-action="Script" asp-route-ScriptName="" class="card-href">
+                <img src="~/Images/HIGH QUALITY SCRÝPTS FOR EVERY NEEDS.svg" alt="" class="card-img">
+                <h2 class="card-header">SCRIPT HEADER</h2>
+                <p class="card-price">1000 $</p>
+                <a asp-action="" asp-controller="Scripts" class="addto-card">BUY</a>
+            </a>
+        </div>
+</section>

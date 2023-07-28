@@ -1,42 +1,31 @@
 ﻿@model IEnumerable<LoginRegisterApp.Models.Showcases>
 @{
     ViewData["Title"] = "Home Page";
-    
+
 }
 
-<div id="pic-container">
-        <img id="landing-pic" src="~/Images/landing-demo.png" alt="landing image">
+<section id="top-middle-section">
+    <div id="top-section-area">
+        <h1 id="top-section-header"></h1>
+        <h2 id="top-section-h2"></h2>
+        <h3 id="top-section-h3"></h3>
     </div>
-    <img src="~/Images/exactly-legal-horizontal.svg" alt="horizontal-banner" class="horizontal-entry">
-    <img src="~/Images/exactly-legal-horizontal.svg" alt="horizontal-banner" class="horizontal-entry">
-    <main>
-        <h1 id="announcement-showcase">SHOWCASE</h1>
-        <hr>
-        <section id="showcase-horizontal">
-            @foreach(var showcase in Model){
-            <div id="script-showcase">
-                <a asp-controller="Home" asp-action="ShowcaseRoute" asp-route-showcase="@showcase.ShowcaseUrl" id="script-href">
-                    <img src="@showcase.ShowcasePhotoUrl" alt="ads banner image" id="showcase-img">
-                    <div id="inner-container">
-                        <h1 id="showcase-header">@showcase.ShowcaseHeader</h1>
-                        <p id="showcase-text">@showcase.ShowcaseText</p>
-                    </div>
-                </a>
-            </div>
-            }
-        </section>
-        <h1 id="announcement-mini-showcase">MINI SHOWCASE</h1>
-        <hr>
-        <section id="mini-showcase">
-            @foreach(var showcasemini in @Model){
-                if(showcasemini.IsItMını){
-            <div id="showcase-mini">
-                <a asp-controller="Home" asp-action="Showcase" asp-route-showcase="@showcasemini.ShowcaseUrl"  id="showcase-href">
-                    <img src="@showcasemini.ShowcasePhotoUrl" alt="mini-showcase picture banner" id="mini-showcase-img">
-                    <h2 id="mini-showcase-header">@showcasemini.ShowcaseText"</h2>
-                </a>
-            </div>
-           }
-           }
+</section>
 
-        </section>
+        
+<img class="landing-pic bnb" src="~/Images/bnb-main-pic.jpg" alt="">
+<img class="landing-pic btc" src="~/Images/btc-main-pic.jpg" alt="">
+<img class="landing-pic eth" src="~/Images/eth-main-pic.jpg" alt="">
+        
+<img title="WAAAVEEESSSSSS" id="waves" src="~/Images/Adsız tasarım.svg" alt="waves pic">
+<section id="ad-banners" class="grid-container">
+    @foreach (var showcase in Model)
+    {
+        <div class="ad-banner ">
+            <a asp-action="@showcase.ShowcaseUrl" asp-controller="">
+                <img src="~/Images/@showcase.ShowcasePhotoUrl" alt="advertise picture"
+                     class="banner-pic ">
+            </a>
+        </div>
+    }
+</section>

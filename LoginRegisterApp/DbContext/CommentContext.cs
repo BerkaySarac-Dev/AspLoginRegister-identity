@@ -8,6 +8,7 @@ namespace LoginRegisterApp.DbContext
         {
             
         }
+
         public DbSet<Comments> comments { get; set; }
     }
 }

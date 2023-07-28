@@ -4,92 +4,153 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ExactlyLegal</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400;500&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LoginRegisterApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-   <header>
-        <nav id="main-nav">
+    <header>
+        <div id="top-corner-logo">
+            <p>EVERYTHING FOR FREEDOM</p>
+        </div>
 
-            <ul id="main-nav-list">
-                <li class="nav-list-item"><a class="nav-list-link" asp-controller="Home" asp-action="Home">Home</a></li>
-                <li class="nav-list-item"><a class="nav-list-link" asp-controller="Home" asp-action="Scripts">Scripts</a></li>
-                <li class="nav-list-item"><a class="nav-list-link" asp-controller="Home" asp-action="Tools">Tools</a></li>
-                <li class="nav-list-item"><a class="nav-list-link" asp-controller="Home" asp-action="questions">S.S.S</a></li>
-                <li class="nav-list-item"><a class="nav-list-link" asp-controller="Home" asp-action="About">About</a></li>
-            </ul>
+        <ul id="mainlist" class="navbar nav justify-content-center">
+            <li class=" glitch-effect main-list-item nav-item">
+                <a asp-action="Home" asp-controller="Home"
+                   class="glitch2Bedore glitch main-list-url nav-link">HOME</a>
+            </li>
+            <li class="glitch2Bedore glitch glitch-effect main-list-item nav-item">
+                <a asp-action="Scripts" asp-controller="Home"
+                   class="glitch2Bedore glitch main-list-url nav-link">SCRIPTS</a>
+            </li>
+            <li class="glitch2Bedore glitch glitch-effect main-list-item nav-item">
+                <a asp-action="Home" asp-controller="Tools"
+                   class="glitch2Bedore glitch main-list-url nav-link">TOOLS</a>
+            </li>
+            <li class="glitch2Bedore glitch glitch-effect main-list-item nav-item">
+                <a asp-action="Home" asp-controller="Privacy"
+                   class="glitch2Bedore glitch main-list-url nav-link">PRIVACY</a>
+            </li>
+            <li class="glitch2Bedore glitch glitch-effect main-list-item nav-item">
+                <a asp-action="Questions" asp-controller="Home"
+                   class="glitch2Bedore glitch main-list-url nav-link">F.A.Q</a>
+            </li>
 
-            <div id="member-area">
-                <ul id="member-area-list">
-                    @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="text-info text-md-center">
-                                @User.Identity.Name
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-action="Logout" asp-controller="Account">Logout</a>
-                            </li>
-                            @if (User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Admin" asp-action="Index" asp-controller="Home">Admin</a>
-                                </li>
-                            }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-action="Profile" asp-controller="Account">Profile</a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item member-list-item">
-                                <a class="nav-link text-dark  member-list-link" asp-area="" asp-action="Register" asp-controller="Account">Register</a>
-                            </li>
-                            <li class="nav-item member-list-item">
-                                <a class="nav-link text-dark member-list-link" asp-area="" asp-action="Login" asp-controller="Account">Login</a>
-                            </li>
-                        }
-                </ul>
-            </div>
-        </nav>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li class="text-info text-md-center member-list-item">
+                    @User.Identity.Name
+                </li>
+                <li class="nav-item member-list-item">
+                    <a class="nav-link text-dark" asp-area="" asp-action="Logout" asp-controller="Account">Logout</a>
+                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item member-list-item">
+                        <a class="nav-link text-dark" asp-area="Admin" asp-action="Index" asp-controller="Home">Admin</a>
+                    </li>
+                }
+                <li class="nav-item member-list-item">
+                    <a class="nav-link text-dark" asp-area="" asp-action="Profile" asp-controller="Account">Profile</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item member-list-item">
+                    <a class="nav-link text-dark  member-list-link" asp-area="" asp-action="Register" asp-controller="Account">Register</a>
+                </li>
+                <li class="nav-item member-list-item">
+                    <a class="nav-link text-dark member-list-link" asp-area="" asp-action="Login" asp-controller="Account">Login</a>
+                </li>
+            }
+        </ul>
+        
+                
+            
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div>
+        <main role="main" >
             @RenderBody()
         </main>
     </div>
 
-    <footer class="bg-dark text-center text-white">
-        <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: Social media -->
-            
-            <!-- Section: Social media -->
-        </div>
-        <!-- Grid container -->
-
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-            © 2023 Copyright:
-            <a class="text-white" href="https://exactlylegal.io/">exactlylegal.io</a>
-        </div>
-        <!-- Copyright -->
+    <footer>
+        <form action="" method="post">
+            <h2>SUBSCRIBE NEWS GET NOTIFICATIONS ABOUT NEW PRODUCTS</h2>
+            <label for="Nickname">Nickname :</label>
+            <input type="text" name="Nickname" placeholder="your username" id="" class="subcribe-form-input">
+            <label for="Email">Email :</label>
+            <input type="email" name="Email" placeholder="something@something.com" id="" class="subcribe-form-input">
+            <button type="submit">SUBSCRIBE</button>
+        </form>
+        <ul id="footer-list" class="footer-grid-list">
+            <li class="footer-list-item"><a href="" class="footer-list-url">Home</a></li>
+            <li class="footer-list-item"><a href="" class="footer-list-url">F.A.Q</a></li>
+            <li class="footer-list-item"><a href="" class="footer-list-url">Terms & Services</a></li>
+            <li class="footer-list-item"><a href="" class="footer-list-url">Contact Us</a></li>
+            <li class="footer-list-item"><a href="" class="footer-list-url">Privacy</a></li>
+        </ul>
+        <img src="~/Images/EL-LOGO.png" id="footer-logo" alt="">
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script>
+        // Değişecek metinleri ve süreleri belirleyin
+        const texts = [
+            {
+                h1: "BUY HIGH QUALITY SCRIPTS & TOOLS",
+                h2: "With <span class='our-mark'>ExactlyLegal</span> Guarantee",
+                h3: "Shop with cryptocurrencies. if you want to learn more visit <a href=''>F.A.Q</a>",
+            },
+            {
+                h1: "OR BECOME A VENDOR AND SELL YOUR PRODUCTS WITH VERY LOW COMMUSION RATES",
+                h2: "ANY CRYPTOCURRENCY WHICH YOU WANT. With <span class='our-mark'>ExactlyLegal</span> Guarantee",
+                h3: "",
+            },
+        ];
+
+        const interval = 8000; // Değişim süresi (5 saniye)
+
+        let currentTextIndex = 0;
+
+        function changeTexts() {
+            const { h1, h2, h3 } = texts[currentTextIndex];
+            document.getElementById("top-section-header").innerHTML = h1;
+            document.getElementById("top-section-h2").innerHTML = h2;
+            document.getElementById("top-section-h3").innerHTML = h3;
+            currentTextIndex = (currentTextIndex + 1) % texts.length;
+        }
+
+        // Metinleri belirli aralıklarla değiştirin
+        function startTextAnimation() {
+            changeTexts();
+            const elements = document.querySelectorAll("#top-section-area h1, #top-section-area h2, #top-section-area h3");
+            elements.forEach((element) => (element.style.opacity = 1));
+            setTimeout(() => {
+                elements.forEach((element) => (element.style.opacity = 0));
+                setTimeout(startTextAnimation, 1000); // 1 saniye bekleyip tekrar başlatır
+            }, interval);
+        }
+
+        startTextAnimation();
+    </script>
 </body>
 </html>
